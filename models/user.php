@@ -9,9 +9,9 @@ class User extends Model{
     private string $phone_number;
     private string $password_hash;
     private string $full_name;
-    private string $birthdate;
-    private string $profile_image_url;
-    private string $preferred_genres;
+    private ?string $birthdate;
+    private ?string $profile_image_url;
+    private ?string $preferred_genres;
     private string $created_at;
 
     protected static string $table = "users";
