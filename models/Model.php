@@ -34,5 +34,33 @@ abstract class Model{
         return $objects;
     }
 
-}
+    public static function create(mysqli $mysqli, array $data){
+        $columns = array_keys($data);
+        $placeholder = implode(", ", array_fill(0, count($columns), "?"));
+        $columns_list = implode(", ", $columns);
 
+        $sql = sprintf("INSERT INTO %s ($columns_list) VALUES ($placeholder)", static::$table);
+        $query = $mysqli->prepare($sql);
+
+        $types = "";
+        foreach ($data as $value) {
+            if (is_int($value)) {
+                $types .= "i";
+            } elseif (is_float($value)) {
+                $types .= "d";
+            } elseif (is_null($value)) {
+                $types .= "s";
+            } else {
+                $types .= "s";
+            }
+        }
+
+        $values = array_values($data);
+        $query->bind_param($types, ...$values);
+
+        return $query->execute();
+
+    }
+
+    
+}
