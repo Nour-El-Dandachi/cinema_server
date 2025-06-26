@@ -1,27 +1,42 @@
 <?php
 
-require_once '../connection/connection.php';
+require('../connection/connection.php');
+require('Model.php');
 
-class User {
-    private $user_id;
-    private $email;
-    private $phone_number;
-    private $password_hash;
-    private $full_name;
-    private $birthdate;
-    private $profile_image_url;
-    private $preferred_genres;
-    private $created_at;
+class User extends Model{
+    private int $id;
+    private string $email;
+    private string $phone_number;
+    private string $password_hash;
+    private string $full_name;
+    private string $birthdate;
+    private string $profile_image_url;
+    private string $preferred_genres;
+    private string $created_at;
 
-    public function getUserId() { return $this->user_id; }
-    public function getEmail() { return $this->email; }
-    public function getPhoneNumber() { return $this->phone_number; }
-    public function getPasswordHash() { return $this->password_hash; }
-    public function getFullName() { return $this->full_name; }
-    public function getBirthdate() { return $this->birthdate; }
-    public function getProfileImageUrl() { return $this->profile_image_url; }
-    public function getPreferredGenres() { return $this->preferred_genres; }
-    public function getCreatedAt() { return $this->created_at; }
+    protected static string $table = "users";
+
+    public function __construct(array $data) {
+        $this->id = $data["id"];
+        $this->email = $data["email"];
+        $this->phone_number = $data["phone_number"];
+        $this->password_hash = $data["password_hash"];
+        $this->full_name = $data["full_name"];
+        $this->birthdate = $data["birthdate"];
+        $this->profile_image_url = $data["profile_image_url"];
+        $this->preferred_genres = $data["preferred_genres"];
+        $this->created_at = $data["created_at"];
+    }
+
+    public function getId(): int { return $this->id; }
+    public function getEmail(): string{ return $this->email; }
+    public function getPhoneNumber(): string { return $this->phone_number; }
+    public function getPasswordHash(): string { return $this->password_hash; }
+    public function getFullName(): string { return $this->full_name; }
+    public function getBirthdate(): string { return $this->birthdate; }
+    public function getProfileImageUrl(): string { return $this->profile_image_url; }
+    public function getPreferredGenres(): string { return $this->preferred_genres; }
+    public function getCreatedAt(): string { return $this->created_at; }
 
 
     public function setEmail($email) { $this->email = $email; }
@@ -33,26 +48,21 @@ class User {
     public function setPreferredGenres($genres) { $this->preferred_genres = $genres; }
 
 
-    public function __construct($row) {
-        $this->user_id = $row['user_id'] ?? null;
-        $this->email = $row['email'];
-        $this->phone_number = $row['phone_number'];
-        $this->password_hash = $row['password_hash'];
-        $this->full_name = $row['full_name'];
-        $this->birthdate = $row['birthdate'] ?? null;
-        $this->profile_image_url = $row['profile_image_url'] ?? null;
-        $this->preferred_genres = $row['preferred_genres'] ?? null;
-        $this->created_at = $row['created_at'] ?? null;
+    public function toArray(){
+        return [$this->id, $this->email, 
+                $this->phone_number, $this->password_hash, 
+                $this->full_name, $this->birthdate, 
+                $this->profile_image_url, $this->preferred_genres, 
+                $this->created_at];
     }
-
     
-    public static function create($email, $phone, $password_hash, $full_name) {
-        global $mysqli;
-        $query = "INSERT INTO users (email, phone_number, password_hash, full_name)
-                  VALUES (?, ?, ?, ?)";
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("ssss", $email, $phone, $password_hash, $full_name);
-        return $stmt->execute();
-    }
+    // public function create($email, $phone, $password_hash, $full_name) {
+    //     global $mysqli;
+    //     $query = "INSERT INTO users (email, phone_number, password_hash, full_name)
+    //               VALUES (?, ?, ?, ?)";
+    //     $stmt = $mysqli->prepare($query);
+    //     $stmt->bind_param("ssss", $email, $phone, $password_hash, $full_name);
+    //     return $stmt->execute();
+    // }
 
 }
