@@ -4,6 +4,8 @@ abstract class Model{
     protected static string $table;
     protected static string $primary_key = "id";
 
+    abstract public function getId(): int;
+
     public static function find(mysqli $mysqli, int $id){
         $sql= sprintf("SELECT * FROM %s WHERE %s = ?",
                        static::$table,
@@ -62,5 +64,15 @@ abstract class Model{
 
     }
 
-    
+    public function delete(mysqli $mysqli){
+        $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);
+
+        $query = $mysqli->prepare($sql);
+
+        $id = $this->getId();
+        $query->bind_param("i", $id);
+
+        $query->execute();
+    }
+
 }
