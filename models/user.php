@@ -61,4 +61,19 @@ class User extends Model{
             ];
     }
     
+    public static function findByEmailOrPhone(mysqli $mysqli, string $data){
+        $sql = "SELECT * FROM users WHERE email = ? OR phone_number = ?";
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ss", $data, $data);
+
+        $query->execute();
+        $result = $query->get_result();
+
+        if ($result->num_rows === 0) return null;
+
+        $user= $result->fetch_assoc();
+        return new User($user);
+    }
+
 }

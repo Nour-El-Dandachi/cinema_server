@@ -8,7 +8,7 @@ $response["status"] = 200;
 
 if (!isset($_GET["id"])) {
     $response["status"] = 400;
-    $response["error"] = "Missing user ID";
+    $response["message"] = "Missing user ID";
     echo json_encode($response);
     return;
 }
@@ -18,7 +18,7 @@ $user = User::find($mysqli, $id);
 
 if (!$user) {
     $response["status"] = 404;
-    $response["error"] = "User not found";
+    $response["message"] = "User not found";
     echo json_encode($response);
     return;
 }

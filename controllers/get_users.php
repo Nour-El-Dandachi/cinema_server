@@ -22,7 +22,7 @@ try {
     $user = User::find($mysqli, $id);
     if (!$user) {
         $response["status"] = 404;
-        $response["error"] = "User not found";
+        $response["message"] = "User not found";
         echo json_encode($response);
         return;
     }
@@ -32,6 +32,6 @@ try {
 
 } catch (Exception $e) {
     $response["status"] = 500;
-    $response["error"] = "Something went wrong";
+    $response["message"] = "Something went wrong";
     echo json_encode($response);
 }

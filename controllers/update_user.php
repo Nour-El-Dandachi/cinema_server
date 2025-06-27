@@ -10,7 +10,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 if (!$data || !isset($data["id"])) {
     $response["status"] = 400;
-    $response["error"] = "Missing user ID";
+    $response["message"] = "Missing user ID";
     echo json_encode($response);
     return;
 }
@@ -22,7 +22,7 @@ $user = User::find($mysqli, $id);
 
 if (!$user) {
     $response["status"] = 404;
-    $response["error"] = "User not found";
+    $response["message"] = "User not found";
     echo json_encode($response);
     return;
 }
@@ -31,7 +31,7 @@ $updated = $user->update($mysqli, $data);
 
 if (!$updated) {
     $response["status"] = 500;
-    $response["error"] = "Failed to update user";
+    $response["message"] = "Failed to update user";
     echo json_encode($response);
     return;
 }
