@@ -50,4 +50,22 @@ class Showtime extends Model {
         ];
     }
 
+    public static function findByDate(mysqli $mysqli, string $date): ?array {
+        $sql = "SELECT * FROM showtimes WHERE DATE(start_time) = ?";
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("s", $date);
+        
+        $query->execute();
+        $result = $query->get_result();
+
+        $showtimes = [];
+        while ($row = $result->fetch_assoc()) {
+            $showtimes[] = new Showtime($row);
+        }
+
+        return $showtimes;
+    }
+
+
 }
