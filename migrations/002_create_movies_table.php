@@ -2,7 +2,7 @@
 
 require("../connection/connection.php");
 
-$migration_name = '001_create_users_table';
+$migration_name = '002_create_movies_table';
 $migration_sql = "SELECT * FROM migrations_log WHERE migration_name = ?";
 $migration_query = $mysqli->prepare($migration_sql);
 $migration_query->bind_param("s", $migration_name);
@@ -14,16 +14,17 @@ if ($result->num_rows > 0) {
     return;
 }
 
-
-$sql= "CREATE TABLE users (
+$sql = "CREATE TABLE movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone_number VARCHAR(20) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    birthdate DATE,
-    profile_image_url TEXT,
-    preferred_genres TEXT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    genre VARCHAR(100),
+    rating VARCHAR(10),
+    actors TEXT,
+    trailer_url TEXT,
+    poster_url TEXT,
+    release_date DATE,
+    duration_minutes INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
@@ -31,7 +32,7 @@ $query = $mysqli->prepare($sql);
 
 if ($query) {
     if ($query->execute()) {
-        echo "Users table created successfully. ";
+        echo "Movies table created successfully. ";
 
         $log_sql = "INSERT INTO migrations_log (migration_name) VALUES (?)";
         $log_query = $mysqli->prepare($log_sql);
@@ -49,3 +50,5 @@ if ($query) {
 } else {
     echo "Execution failed: " . $mysqli->error;
 }
+
+
