@@ -75,4 +75,42 @@ abstract class Model{
         $query->execute();
     }
 
+    public function update(mysqli $mysqli, array $data){
+
+        $columns = array_keys($data);
+
+        $set_parts = [];
+
+        foreach ($columns as $c) {
+            $set_parts[] = "$c = ?";
+        }
+
+        $set_query = implode(", ", $set_parts);
+
+        $sql = sprintf("UPDATE %s SET $set_query WHERE %s = ?", static::$table, static::$primary_key);
+
+        $query = $mysqli->prepare($sql);
+
+        $types = "";
+        foreach ($data as $value) {
+            if (is_int($value)) {
+                $types .= "i";
+            } elseif (is_float($value)) {
+                $types .= "d";
+            } elseif (is_null($value)) {
+                $types .= "s";
+            } else {
+                $types .= "s";
+            }
+        }
+
+        $types .= "i";
+        $values = array_values($data);
+        $values[] = $this->getId();
+
+        $query->bind_param($types, ...$values);
+        
+        return $query->execute();
+
+    }
 }
