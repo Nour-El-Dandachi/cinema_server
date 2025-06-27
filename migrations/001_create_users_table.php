@@ -2,20 +2,20 @@
 
 require("../connection/connection.php");
 
-$migrationName = '001_create_users_table';
-$checkQuery = "SELECT * FROM migrations_log WHERE migration_name = ?";
-$checkStmt = $mysqli->prepare($checkQuery);
-$checkStmt->bind_param("s", $migrationName);
-$checkStmt->execute();
-$checkResult = $checkStmt->get_result();
+$migration_name = '001_create_users_table';
+$migration_sql = "SELECT * FROM migrations_log WHERE migration_name = ?";
+$migration_query = $mysqli->prepare($migration_sql);
+$migration_query->bind_param("s", $migration_name);
+$migration_query->execute();
+$result = $migration_query->get_result();
 
-if ($checkResult->num_rows > 0) {
-    echo "Migration '$migrationName' already applied.";
+if ($result->num_rows > 0) {
+    echo "Migration '$migration_name' already applied.";
     exit;
 }
 
 
-$createQuery = "CREATE TABLE IF NOT EXISTS users (
+$sql= "CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
@@ -27,24 +27,24 @@ $createQuery = "CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
-$createStmt = $mysqli->prepare($createQuery);
+$query = $mysqli->prepare($sql);
 
-if ($createStmt) {
-    if ($createStmt->execute()) {
+if ($query) {
+    if ($query->execute()) {
         echo "Users table created successfully. ";
 
-        $logQuery = "INSERT INTO migrations_log (migration_name) VALUES (?)";
-        $logStmt = $mysqli->prepare($logQuery);
-        $logStmt->bind_param("s", $migrationName);
+        $log_sql = "INSERT INTO migrations_log (migration_name) VALUES (?)";
+        $log_query = $mysqli->prepare($log_sql);
+        $log_query->bind_param("s", $migrationName);
 
-        if ($logStmt->execute()) {
+        if ($log_query->execute()) {
             echo "Migration '$migrationName' logged successfully.";
         } else {
-            echo "Table created but failed to log migration: " . $logStmt->error;
+            echo "Table created but failed to log migration: " . $log_query->error;
         }
 
     } else {
-        echo "Execution failed: " . $createStmt->error;
+        echo "Execution failed: " . $query->error;
     }
 } else {
     echo "Execution failed: " . $mysqli->error;
