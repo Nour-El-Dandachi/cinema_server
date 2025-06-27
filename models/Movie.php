@@ -6,14 +6,14 @@ require('Model.php');
 class Movie extends Model {
     private int $id;
     private string $title;
-    private ?string $description;
-    private ?string $genre;
+    private string $description;
+    private string $genre;
     private ?string $rating;
     private ?string $actors;
     private ?string $trailer_url;
-    private ?string $poster_url;
-    private ?string $release_date;
-    private ?int $duration_minutes;
+    private string $poster_url;
+    private string $release_date;
+    private int $duration_minutes;
     private string $created_at;
 
     protected static string $table = "movies";
