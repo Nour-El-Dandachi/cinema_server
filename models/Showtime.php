@@ -40,13 +40,14 @@ class Showtime extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->movie_id,
-            $this->auditorium_id,
-            $this->start_time,
-            $this->language,
-            $this->subtitled,
-            $this->created_at
+            "id" => $this->id,
+            "movie_id" => $this->movie_id,
+            "auditorium_id" => $this->auditorium_id,
+            "start_time" => $this->start_time,
+            "language" => $this->language,
+            "subtitled" => $this->subtitled,
+            "created_at" => $this->created_at
         ];
     }
+
 }

@@ -37,13 +37,14 @@ class Payment extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->booking_id,
-            $this->user_id,
-            $this->amount,
-            $this->payment_method,
-            $this->payment_time,
-            $this->created_at
+            "id" => $this->id,
+            "booking_id" => $this->booking_id,
+            "user_id" => $this->user_id,
+            "amount" => $this->amount,
+            "payment_method" => $this->payment_method,
+            "payment_time" => $this->payment_time,
+            "created_at" => $this->created_at
         ];
     }
+
 }

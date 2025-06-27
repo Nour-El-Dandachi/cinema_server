@@ -23,9 +23,9 @@ if (
 
 $data["password_hash"] = password_hash($data["password_hash"], PASSWORD_DEFAULT);
 
-$created = User::create($mysqli, $data);
+$user = User::create($mysqli, $data);
 
-if (!$created) {
+if (!$user) {
     $response["status"] = 500;
     $response["message"] = "Failed to register user";
     echo json_encode($response);

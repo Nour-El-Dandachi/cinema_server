@@ -32,11 +32,12 @@ class Snack extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->name,
-            $this->price,
-            $this->description,
-            $this->created_at
+            "id" => $this->id,
+            "name" => $this->name,
+            "price" => $this->price,
+            "description" => $this->description,
+            "created_at" => $this->created_at
         ];
     }
+
 }

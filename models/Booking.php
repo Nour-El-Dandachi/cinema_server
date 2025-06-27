@@ -34,12 +34,13 @@ class Booking extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->user_id,
-            $this->showtime_id,
-            $this->total_price,
-            $this->booking_status,
-            $this->created_at
+            "id" => $this->id,
+            "user_id" => $this->user_id,
+            "showtime_id" => $this->showtime_id,
+            "total_price" => $this->total_price,
+            "booking_status" => $this->booking_status,
+            "created_at" => $this->created_at
         ];
     }
+
 }

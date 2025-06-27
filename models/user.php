@@ -48,18 +48,20 @@ class User extends Model{
     public function setPreferredGenres($genres) { $this->preferred_genres = $genres; }
 
 
-    public function toArray(){
-        return [$this->id, 
-                $this->email, 
-                $this->phone_number, 
-                $this->password_hash, 
-                $this->full_name, 
-                $this->birthdate, 
-                $this->profile_image_url, 
-                $this->preferred_genres, 
-                $this->created_at
-            ];
-    }
+    public function toArray(): array {
+        return [
+            "id" => $this->id,
+            "email" => $this->email,
+            "phone_number" => $this->phone_number,
+            "password_hash" => $this->password_hash,
+            "full_name" => $this->full_name,
+            "birthdate" => $this->birthdate,
+            "profile_image_url" => $this->profile_image_url,
+            "preferred_genres" => $this->preferred_genres,
+            "created_at" => $this->created_at
+        ];
+}
+
     
     public static function findByEmailOrPhone(mysqli $mysqli, string $data){
         $sql = "SELECT * FROM users WHERE email = ? OR phone_number = ?";

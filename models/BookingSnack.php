@@ -28,11 +28,12 @@ class BookingSnack extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->booking_id,
-            $this->snack_id,
-            $this->quantity,
-            $this->created_at
+            "id" => $this->id,
+            "booking_id" => $this->booking_id,
+            "snack_id" => $this->snack_id,
+            "quantity" => $this->quantity,
+            "created_at" => $this->created_at
         ];
     }
+
 }

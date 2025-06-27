@@ -54,19 +54,20 @@ class Movie extends Model {
     public function setReleaseDate($date) { $this->release_date = $date; }
     public function setDurationMinutes($min) { $this->duration_minutes = $min; }
 
-    public function toArray() {
+    public function toArray(): array {
         return [
-            $this->id,
-            $this->title,
-            $this->description,
-            $this->genre,
-            $this->rating,
-            $this->actors,
-            $this->trailer_url,
-            $this->poster_url,
-            $this->release_date,
-            $this->duration_minutes,
-            $this->created_at
+            "id" => $this->id,
+            "title" => $this->title,
+            "description" => $this->description,
+            "genre" => $this->genre,
+            "rating" => $this->rating,
+            "actors" => $this->actors,
+            "trailer_url" => $this->trailer_url,
+            "poster_url" => $this->poster_url,
+            "release_date" => $this->release_date,
+            "duration_minutes" => $this->duration_minutes,
+            "created_at" => $this->created_at,
         ];
     }
+
 }

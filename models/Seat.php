@@ -39,13 +39,14 @@ class Seat extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->auditorium_id,
-            $this->seat_row,
-            $this->seat_number,
-            $this->seat_type,
-            $this->booked,
-            $this->created_at
+            "id" => $this->id,
+            "auditorium_id" => $this->auditorium_id,
+            "seat_row" => $this->seat_row,
+            "seat_number" => $this->seat_number,
+            "seat_type" => $this->seat_type,
+            "booked" => $this->booked,
+            "created_at" => $this->created_at
         ];
     }
+
 }

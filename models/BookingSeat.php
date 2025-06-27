@@ -28,11 +28,12 @@ class BookingSeat extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->booking_id,
-            $this->seat_id,
-            $this->price,
-            $this->created_at
+            "id" => $this->id,
+            "booking_id" => $this->booking_id,
+            "seat_id" => $this->seat_id,
+            "price" => $this->price,
+            "created_at" => $this->created_at
         ];
     }
+
 }

@@ -28,10 +28,11 @@ class Auditorium extends Model {
 
     public function toArray(): array {
         return [
-            $this->id,
-            $this->name,
-            $this->seat_layout,
-            $this->created_at
+            "id" => $this->id,
+            "name" => $this->name,
+            "seat_layout" => $this->seat_layout,
+            "created_at" => $this->created_at,
         ];
     }
+
 }
