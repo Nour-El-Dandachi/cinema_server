@@ -20,7 +20,6 @@ $sql = "CREATE TABLE seats (
     seat_row VARCHAR(5),
     seat_number INT,
     seat_type VARCHAR(50),
-    booked BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (auditorium_id) REFERENCES auditoriums(id) ON DELETE CASCADE
 ) ENGINE=InnoDB";
