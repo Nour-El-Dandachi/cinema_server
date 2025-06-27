@@ -49,20 +49,16 @@ class User extends Model{
 
 
     public function toArray(){
-        return [$this->id, $this->email, 
-                $this->phone_number, $this->password_hash, 
-                $this->full_name, $this->birthdate, 
-                $this->profile_image_url, $this->preferred_genres, 
-                $this->created_at];
+        return [$this->id, 
+                $this->email, 
+                $this->phone_number, 
+                $this->password_hash, 
+                $this->full_name, 
+                $this->birthdate, 
+                $this->profile_image_url, 
+                $this->preferred_genres, 
+                $this->created_at
+            ];
     }
     
-    // public function create($email, $phone, $password_hash, $full_name) {
-    //     global $mysqli;
-    //     $query = "INSERT INTO users (email, phone_number, password_hash, full_name)
-    //               VALUES (?, ?, ?, ?)";
-    //     $stmt = $mysqli->prepare($query);
-    //     $stmt->bind_param("ssss", $email, $phone, $password_hash, $full_name);
-    //     return $stmt->execute();
-    // }
-
 }
