@@ -31,5 +31,7 @@ if (!$booking) {
     return;
 }
 
+$booking_id = $mysqli->insert_id;
 $response["message"] = "Booking added successfully";
+$response["booking_id"] = $booking_id;
 echo json_encode($response);

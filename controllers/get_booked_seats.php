@@ -5,7 +5,9 @@ require("../connection/connection.php");
 $response = [];
 $response["status"] = 200;
 
-$showtime_id = $_GET["showtime_id"] ?? null;
+$data = json_decode(file_get_contents("php://input"), true);
+$showtime_id = $data["showtime_id"] ?? null;
+
 
 if (!$showtime_id) {
     $response["status"] = 400;
