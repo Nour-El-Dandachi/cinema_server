@@ -19,10 +19,11 @@ $query = $mysqli->prepare($sql);
 $query->execute();
 $result = $query->get_result();
 
-$movies= $result->fetch_assoc();
+$response["movies"] = [];
 
 while ($row = $result->fetch_assoc()) {
     $response["movies"][] = $row;
 }
+
 
 echo json_encode($response);
