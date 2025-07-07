@@ -36,6 +36,37 @@ abstract class Model{
         return $objects;
     }
 
+    public static function where(mysqli $mysqli, $column, $data){
+        $sql= sprintf("SELECT * FROM %s WHERE %s = ?",
+                       static::$table,
+                       $column);
+        
+        $type = "";
+        if (is_int($data)) {
+                $type = "i";
+            } elseif (is_float($data)) {
+                $type = "d";
+            } elseif (is_null($data)) {
+                $type = "s";
+            } else {
+                $type = "s";
+            }
+        
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param($type, $data);
+        $query->execute();
+
+        $data = $query->get_result();
+
+        $objects = [];
+        while($row = $data->fetch_assoc()){
+            $objects[]= new static($row);
+        }
+
+        return $objects;
+    }
+
     public static function create(mysqli $mysqli, array $data){
         $columns = array_keys($data);
         $placeholder = implode(", ", array_fill(0, count($columns), "?"));
@@ -73,6 +104,14 @@ abstract class Model{
         $query->bind_param("i", $id);
 
         $query->execute();
+    }
+
+    public static function deleteAll($mysqli){
+        $sql = sprintf("DELETE FROM %s;", static::$table);
+
+        $query = $mysqli->prepare($sql);
+
+        return $query->execute();
     }
 
     public function update(mysqli $mysqli, array $data){
