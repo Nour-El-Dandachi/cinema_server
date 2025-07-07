@@ -1,6 +1,6 @@
 <?php
 
-require('../connection/connection.php');
+require(__DIR__ . "/../connection/connection.php");
 require('Model.php');
 
 class Seat extends Model {

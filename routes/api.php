@@ -16,6 +16,20 @@ $apis = [
     '/add_auditorium'         => ['controller' => 'AuditoriumController', 'method' => 'addAuditorium'],
     '/update_movie'         => ['controller' => 'AuditoriumController', 'method' => 'updateAuditorium'],
 
+    '/showtimes'         => ['controller' => 'ShowtimeController', 'method' => 'getAllShowtimes'],
+    '/add_showtime'         => ['controller' => 'ShowtimeController', 'method' => 'addShowtime'],
+    '/delete_showtime'         => ['controller' => 'ShowtimeController', 'method' => 'deleteShowtime'],
+    '/find_showtimes_by_movie_and_auditorium'         => ['controller' => 'ShowtimeController', 'method' => 'findShowtimesByMovieAndAuditorium'],
+    '/find_showtimes_by_date_and_time'         => ['controller' => 'ShowtimeController', 'method' => 'findShowtimeByDateAndTime'],
+
+    '/bookings'         => ['controller' => 'BookingController', 'method' => 'getAllBookings'],
+    '/add_booking'         => ['controller' => 'BookingController', 'method' => 'addBooking'],
+
+    '/seats'         => ['controller' => 'SeatController', 'method' => 'getAllSeats'],
+    '/add_seat'         => ['controller' => 'SeatController', 'method' => 'addSeat'],
     
+    
+
+
 
 ];

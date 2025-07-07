@@ -1,6 +1,6 @@
 <?php
 
-require('../connection/connection.php');
+require(__DIR__ . "/../connection/connection.php");
 require('Model.php');
 
 class Showtime extends Model {
@@ -71,4 +71,77 @@ class Showtime extends Model {
 
         return $showtimes;
     }
+
+    public static function findShowtimesByMovieAndAuditorium(mysqli $mysqli, int $movie_id, int $auditorium_id): array {
+        $sql = "
+            SELECT day, time
+            FROM showtimes
+            WHERE movie_id = ?
+            AND auditorium_id = ?
+            AND day BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 DAY)
+            ORDER BY day ASC, time ASC;
+        ";
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ii", $movie_id, $auditorium_id);
+        $query->execute();
+        $result = $query->get_result();
+
+        $dates = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $date = $row["day"];
+            $time = $row["time"];
+
+            if (!isset($dates[$date])) {
+                $dates[$date] = [];
+            }
+
+            $dates[$date][] = $time;
+        }
+
+        $response["dates"] = [];
+
+        foreach ($dates as $date => $times) {
+            $response["dates"][] = [
+                "date" => $date,
+                "times" => $times
+            ];
+        }
+
+        return $response;
+    }
+
+    public static function findShowtimeId(
+        mysqli $mysqli,
+        int $movie_id,
+        int $auditorium_id,
+        string $date,
+        string $time
+    ): array {
+
+
+        $sql = "
+            SELECT id AS showtime_id
+            FROM showtimes
+            WHERE movie_id = ?
+                AND auditorium_id = ?
+                AND day = ?
+                AND time = ?
+            LIMIT 1
+        ";
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("iiss", $movie_id, $auditorium_id, $date, $time);
+        $query->execute();
+        $result = $query->get_result();
+
+        $row = $result->fetch_assoc();
+
+        $response["showtime_id"]= $row["showtime_id"];
+
+        return $response;
+        
+    }
+
 }

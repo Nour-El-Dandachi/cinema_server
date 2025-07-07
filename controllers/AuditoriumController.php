@@ -19,7 +19,7 @@ class AuditoriumController{
 
         $id = $_GET["id"];
         $auditorium = Auditorium::find($mysqli, $id);
-        $auditorium_array= ToArrayService::objectsToArray($auditorium); 
+        $auditorium_array= ToArrayService::objectsToArray([$auditorium]); 
         echo ResponseService::success_response($auditorium_array);
         return;
     }

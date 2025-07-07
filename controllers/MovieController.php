@@ -19,7 +19,7 @@ class MovieController{
 
         $id = $_GET["id"];
         $movie = Movie::find($mysqli, $id);
-        $movie_array= ToArrayService::objectsToArray($movie); 
+        $movie_array= ToArrayService::objectsToArray([$movie]); 
         echo ResponseService::success_response($movie_array);
         return;
     }
