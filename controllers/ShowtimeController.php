@@ -98,8 +98,7 @@ class ShowtimeController{
         $auditorium_id= $data["auditorium_id"];
 
         $showtimes= Showtime::findShowtimesByMovieAndAuditorium($mysqli, $movie_id, $auditorium_id);
-        $showtimes_array = ToArrayService::objectsToArray($showtimes); 
-        echo ResponseService::success_response($showtimes_array);
+        echo ResponseService::success_response($showtimes);
         return;
 
     }
@@ -126,9 +125,7 @@ class ShowtimeController{
         $time = $data["time"];
 
         $showtime = Showtime::findShowtimeId($mysqli, $movie_id, $auditorium_id, $date, $time);
-
-        $showtime_array = ToArrayService::objectsToArray($showtime); 
-        echo ResponseService::success_response($showtime_array);
+        echo ResponseService::success_response($showtime);
         return;
 
 

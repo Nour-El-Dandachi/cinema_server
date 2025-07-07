@@ -5,7 +5,7 @@ require(__DIR__ . "/../connection/connection.php");
 require(__DIR__ . "/../services/ToArrayService.php");
 require(__DIR__ . "/../services/ResponseService.php");
 
-class BookingController{
+class SeatController{
     
     public function getAllSeats(){
         global $mysqli;
@@ -52,5 +52,29 @@ class BookingController{
     
     }
 
+    public function getSeatsByAuditoriumId(){
+
+        global $mysqli;
+        $auditorium_id = $_GET["auditorium_id"] ?? null;
+        if (!$auditorium_id){
+            echo ResponseService::failure_message("Missing auditorium id");
+            return;
+        }
+
+        
+        $seats = Seat::findByAuditoriumId($mysqli, $auditorium_id);
+
+        $updated = [];
+        foreach ($seats as $s) {
+            $updated[] = $s->toArray();
+        }
+
+        
+        echo ResponseService::success_response($updated);
+        return;
+            
+    }
+
+    
 
 }

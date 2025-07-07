@@ -109,5 +109,14 @@ class MovieController{
     
     }
 
+    public function getHighestRating(){
+        global $mysqli;
+
+        $movies = Movie::getHighestRating($mysqli);
+        
+
+        echo ResponseService::success_response($movies);
+    }
+
 
 }

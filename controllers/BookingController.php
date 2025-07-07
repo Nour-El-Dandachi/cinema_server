@@ -48,9 +48,13 @@ class BookingController{
             echo ResponseService::failure_message("Failed to add booking");
             return;
         }
-        echo ResponseService::success_message("Booking added successfully");
-    
-    }
+        
+        $booking_id = $mysqli->insert_id;
+
+        echo ResponseService::success_response([
+            "booking_id" => $booking_id
+        ]);
+        }
 
 
 }

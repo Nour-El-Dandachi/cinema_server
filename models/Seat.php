@@ -59,4 +59,5 @@ class Seat extends Model {
         return $seats;
     }
 
+    
 }

@@ -5,6 +5,7 @@ $apis = [
     '/add_movie'         => ['controller' => 'MovieController', 'method' => 'addMovie'],
     '/update_movie'         => ['controller' => 'MovieController', 'method' => 'updateMovie'],
     '/delete_movies'         => ['controller' => 'MovieController', 'method' => 'deleteMovies'],
+    '/get_highest_rating'         => ['controller' => 'MovieController', 'method' => 'getHighestRating'],
 
     '/login'         => ['controller' => 'AuthController', 'method' => 'login'],
     '/register'         => ['controller' => 'AuthController', 'method' => 'register'],
@@ -27,6 +28,12 @@ $apis = [
 
     '/seats'         => ['controller' => 'SeatController', 'method' => 'getAllSeats'],
     '/add_seat'         => ['controller' => 'SeatController', 'method' => 'addSeat'],
+    '/seats_by_auditorium_id'         => ['controller' => 'SeatController', 'method' => 'getSeatsByAuditoriumId'],
+
+    
+    '/bookingseats'         => ['controller' => 'BookedSeatController', 'method' => 'getAllBookedSeats'],
+    '/add_booked_seat'         => ['controller' => 'BookedSeatController', 'method' => 'addBookedSeat'],
+    '/bookedseats'         => ['controller' => 'BookedSeatController', 'method' => 'getBookedSeatsByShowtime'],
     
     
 

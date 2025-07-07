@@ -70,4 +70,28 @@ class Movie extends Model {
         ];
     }
 
+    public static function getHighestRating(mysqli $mysqli): array {
+
+        $sql = "
+            SELECT *
+            FROM movies
+            ORDER BY CAST(rating AS DECIMAL(3,1)) DESC
+            LIMIT 3;
+        ";
+
+        $query = $mysqli->prepare($sql);
+
+        $query->execute();
+        $result = $query->get_result();
+
+        $response["movies"] = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $response["movies"][] = $row;
+        }
+
+        return $response;
+    }
+
+
 }
